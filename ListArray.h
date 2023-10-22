@@ -23,7 +23,7 @@ class ListArray : public List<T> {
                 }
 
                 T operator[](int pos);
-                friend std::ostream&operator<<(std::ostream &out, const ListArray<T< &list);
+                friend std::ostream&operator<<(std::ostream &out, const ListArray<T> &list);
                 void insert(int pos, T e){
                 }
 
@@ -48,7 +48,8 @@ class ListArray : public List<T> {
 			return arr[pos];
 		}
 		int search (T e){
-			for(int i=0, i<=size-1, i++){
+			int i=0;
+			for(int i; i<=size-1; i++){
 				if(arr[i]==e){
 					return i;
 				}
@@ -63,6 +64,8 @@ class ListArray : public List<T> {
 		int size(){
 		
 		}
+};
+
 
 
 
