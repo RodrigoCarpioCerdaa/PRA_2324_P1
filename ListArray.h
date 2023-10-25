@@ -8,61 +8,90 @@ class ListArray : public List<T> {
                 int max;
                 int n;
                 static const int MINSIZE = 2;
-                void rresize(int new_size);
+                void resize(int new_size){
+			if(new_size == max){
+				return;
+			}
+			T* newarr = new T[new_size];
+			int new_max;
+			for (int i=0;i<new_size;i++){
+				newarr[i]=arr[i];
+			}
+			delete[] arr;
+			arr=newarr;
+			max=new_max;
+		};
         public: 
                 ListArray(){
-                        T arr[MINSIZE];
-                        this->T* arr = T* arr;
-                        this-> max = 2;
-                        this-> n = 2;
+                        max = MINSIZE;
+			n = 0;
+                        arr = new T[MINSIZE];
 
-                };
+                }
 
                 ~ListArray(){
-                delete[] arr;
+                	delete[] arr;
                 }
 
-                T operator[](int pos);
-                friend std::ostream&operator<<(std::ostream &out, const ListArray<T> &list);
-                void insert(int pos, T e){
-                }
+                T operator[](int pos){
+			if(pos>n-1 || pos<0){
+				throw std::out_of_range("pos fuera de rango");
+			}
+			return arr[pos];
+		}
+                //friend std::ostream&operator<<(std::ostream &out, const ListArray<T> &list);
+               
 
 		void insert(int pos, T e){
+			if(pos>n-1 || pos<0){
+				throw std::out_of_range("pos fuera de rango");
+			}
 			arr[pos]=e;
-			/*lanza una excepción si pos no es valida*/
 		}
 		void append(T e){
-			arr[size-1]=e;
+			arr[n-1]=e;
 		}
 		void prepend(T e){
 			arr[0]=e;
 		}
 		T remove(int pos){
-			T b;
-			arr[pos]=b;
-			delete arr[pos];
-			return b;
-			/*lanza una excepción si la posición lo es válida*/
+			if(pos>n-1 || pos<0){
+				throw std::out_of_range("pos fuera de rango");
+			}
+			T removed = arr[pos];
+			for (int i=pos; i<=n-1;i++){
+				arr[i] = arr[i+1];
+			}
+
+
 		}
 		T get(int pos){
+			if(pos>n-1 || pos<0){
+				throw std::out_of_range("pos fuera de rango");
+			}
 			return arr[pos];
 		}
 		int search (T e){
 			int i=0;
-			for(int i; i<=size-1; i++){
+			for(int i; i<=n-1; i++){
 				if(arr[i]==e){
 					return i;
 				}
 			}
-			if(i>=size){
+			if(i>=n){
 				return -1;
 			}
 		}
 		bool empty(){
-			
+			if(n==0){
+				return 1;
+			}
+			else{
+				return 0;	
+			}	
 		}
 		int size(){
-		
+			return n;
 		}
 };
 
