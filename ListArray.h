@@ -1,4 +1,5 @@
 #include <ostream>
+#include <iostream>
 #include "List.h"
 
 template <typename T>
@@ -34,53 +35,64 @@ class ListArray : public List<T> {
                 }
 
                 T operator[](int pos){
-			if(pos>n-1 || pos<0){
-				throw std::out_of_range("pos fuera de rango");
+			if(pos>n || pos<0){
+				throw std::out_of_range("pos fuera de rango1");
 			}
 			return arr[pos];
 		}
-                //friend std::ostream&operator<<(std::ostream &out, const ListArray<T> &list);
-               
+		friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &objeto){
+			std::cout << "List => [";
+			for (int i = 0; i < objeto.n; i++) {
+            			out  << " " << std::endl << objeto.arr[i];
+       			}
+			std::cout << std::endl << "]";
+			return out;
+		}               
 
 		void insert(int pos, T e){
-			if(pos>n-1 || pos<0){
-				throw std::out_of_range("pos fuera de rango");
+			if(pos>n || pos<0){
+				throw std::out_of_range("pos fuera de rango2");
+			}
+			if(n==max){
+				resize(2*max);
+			}
+			if (n>0){
+				for(int i=n; i>pos; i--){
+					arr[i] = arr[i-1];
+				}
 			}
 			arr[pos]=e;
+			n++;
 		}
 		void append(T e){
 			arr[n-1]=e;
 		}
 		void prepend(T e){
-			arr[0]=e;
+			arr[0] = e;
 		}
 		T remove(int pos){
-			if(pos>n-1 || pos<0){
-				throw std::out_of_range("pos fuera de rango");
+			if(pos>n || pos<0){
+				throw std::out_of_range("pos fuera de rango3");
 			}
-			T removed = arr[pos];
+			T a = arr[pos];
 			for (int i=pos; i<=n-1;i++){
 				arr[i] = arr[i+1];
 			}
-
-
+			return a; 
 		}
 		T get(int pos){
-			if(pos>n-1 || pos<0){
-				throw std::out_of_range("pos fuera de rango");
+			if(pos>n || pos<0){
+				throw std::out_of_range("pos fuera de rango4");
 			}
 			return arr[pos];
 		}
 		int search (T e){
-			int i=0;
-			for(int i; i<=n-1; i++){
+			for(int i=0; i<=n-1; i++){
 				if(arr[i]==e){
 					return i;
 				}
-			}
-			if(i>=n){
-				return -1;
-			}
+			}	
+			return -1;
 		}
 		bool empty(){
 			if(n==0){
