@@ -47,7 +47,12 @@ class ListArray : public List<T> {
        			}
 			std::cout << std::endl << "]";
 			return out;
-		}               
+		
+		}
+
+		friend ListArray<T> operator + (ListArray<T>& a, ListArray<T>& b){
+			return ListArray<T>(a+b);
+		}
 
 		void insert(int pos, T e){
 			if(pos>n || pos<0){

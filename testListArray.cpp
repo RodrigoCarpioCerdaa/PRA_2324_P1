@@ -15,6 +15,7 @@ int main(){
     list.insert(1, 10);
     list.insert(0, -5);
     list.insert(2, 5);
+    std::cout << 
     std::cout << list << std::endl; 
     std::cout << "size(): " << list.size() << std::endl; 
     std::cout << "empty(): " << list.empty() << std::endl; 
